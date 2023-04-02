@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styleIndex.css">
+</head>
+
+
+<body background="gradient-dark-blue-futuristic-digital-background.jpg">
+    <header>
+        <nav class="navbar" style="background-color: #6c97b1;">
+            <img src="logo.png" class="logo">
+            <ul>
+                <li><a href="user-logged-in.html">Home</a> </li>
+                <li><a href="index.html" >Logout</a> </li>
+                <li><a href="#" onclick="toggleMenu()">Menu</a> </li>
+            </ul>
+            <div class="sub-menu-wrap" id="submenu">
+            <div class="sub-menu" style="background-color: #6c97b1;">
+
+                    <a href="EditUserdetails.html" class="submenu-link">
+                        <p>Edit your details</p>
+
+                    </a>
+                    <a href="#" class="submenu-link">
+                        <p>Show my ticket</p>
+
+                    </a>
+                    <!-- <a href="#" class="submenu-link">
+                        <p>Cancel tiket</p>
+
+                    </a> -->
+                    <a href="#" class="submenu-link">
+                        <p>Download ticket</p>
+
+                    </a>
+                </div>
+            </div>
+            <div class="sub-log-wrap" id="logmenu">
+                <div class="log-menu">
+
+                    <a href="admin-login.html" class="log-link">
+                        <p>Admin login</p>
+                    </a>
+                    <a href="user-login.html" class="log-link">
+                        <p>User Login</p>
+                    </a>
+
+                </div>
+            </div>
+        </nav>
+
+    </header>
+    <div class="greeting">
+        <h1>Happy Journey</h1>
+    </div>
+    
+    <div class="searchBus">
+        <div class="from box">
+          <input class="form miss" list="dataList" id="from" name="from" placeholder="From" required>
+          <dataList id="dataList">
+            <option value="Banglore">
+            <option value="Hydrabad">
+            <option value="Delhi">
+            <option value="Mumai">
+        </dataList>
+        </div>
+        <div class="to box">
+          <input class="to miss" list="dataList2" id="to" name="to" placeholder="To" required>
+          <dataList id="dataList2">
+            <option value="Banglore">
+            <option value="Hydrabad">
+            <option value="Delhi">
+            <option value="Mumai">
+        </dataList>
+        </div>
+        <div class="select-date box">
+          <input type="date" id="date" min="{{today}}" class="miss" required>
+        </div>
+        <div class="search box">
+          <button type="button" onclick="searchBuses()">Search Buses</button>
+        </div>
+      </div>
+      <div>
+        <table class="busTable" id="bus-table" border="2px">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Bus No</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Fare</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <!-- <th>Email</th>
+                    <th>No of seats</th> -->
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+      <!-- ------------------------------------storing and getting the data-------------------------------------------- -->
+      <script>
+        //storing today date
+        const today = new Date().toISOString().substr(0, 10);
+        document.getElementById("date").min = today;
+      </script>
+      
+    <!-- <img class="background" src="city_scape_app_download.png" alt=""> -->
+    
+    <script src="userSearchBus"></script>
+
+</body>
+
+
+</html>
+

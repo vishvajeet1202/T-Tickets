@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styleAdmin.css">
+    <link rel="stylesheet" href="addbus.css">
+</head>
+
+
+<body background="admin.jpg">
+    <header>
+        <nav class="navbar">
+            <img src="logo.png" class="logo">
+            <ul>
+                <li><a href="admin-logedIn.html">Home</a> </li>
+
+                <li><a href="index.html">Log out</a> </li>
+
+            </ul>
+            <div class="sub-menu-wrap" id="submenu">
+                <div class="sub-menu">
+
+                    <a href="#" class="submenu-link">
+                        <p>Change travel date</p>
+
+                    </a>
+                    <a href="#" class="submenu-link">
+                        <p>Show my ticket</p>
+
+                    </a>
+                    <a href="#" class="submenu-link">
+                        <p>Cancel tiket</p>
+
+                    </a>
+                    <a href="#" class="submenu-link">
+                        <p>Download ticket</p>
+
+                    </a>
+                </div>
+            </div>
+
+        </nav>
+
+    </header>
+    <p id="showEmail"
+        style="display: flex; align-items: center; margin-top: 10px; margin-left:10px ; font-family: Arial, Helvetica, sans-serif; color:#c7ade0;">
+        Add buses here</p>
+
+
+    <!-- ----------------------------------------actions--------------------------------------------- -->
+    <div class="actions">
+
+        
+        <div class="addbus">
+
+            <input type="text" class="add-busName box" id="add-bus-Name" placeholder="Bus name">
+            <input type="text" class="add-busNo box" id="add-bus-no" placeholder="bus no">
+            <input type="text" class="add-totalSeats box" id="add-total-seats" placeholder="seats">
+            <input type="text" class="add-from box" id="add-from" placeholder="from">
+            <input type="text" class="add-to box" id="add-to" placeholder="to">
+            <input type="text" class="add-totalSeats box" id="add-fare" placeholder="Fare">
+            <input type="time" class="add-time box" id="add-time">
+            <input type="date" id="date"  class="date" required>
+            <input type="submit" class="submit1" onclick="addBus()">
+        </div>
+
+        
+       
+        <table class="busTable" id="bus-table" border="2px">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Bus No</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Fare</th>
+                    <th>From</th>
+                    <th>To</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+       
+         
+
+
+    </div>
+
+</body>
+
+
+<script src="bus-details"></script>
+
+
+</html>

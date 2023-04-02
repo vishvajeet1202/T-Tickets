@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user-login</title>
+    <link rel="stylesheet" href="style-user-login.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <img src="logo.png" class="logo">
+            <ul>
+                <li><a href="index.html">Home</a> </li>
+
+            </ul>
+        </nav>
+
+    </header>
+
+    <div class="login">
+        <fieldset class="field">
+            <h1>Login</h1>
+            <input type="email" id="logIn-email" class="username input" placeholder="Enter your Email" required><br>
+            <input type="password" id="logIn-pass" class="password input" placeholder="Password" required><br>
+            <input type="submit" class="submit" onclick="logIn()">
+            <label class="not-user">Not a user?</label>
+            <a href="signin.html">Sign In</a>
+        </fieldset>
+    </div>
+
+
+</body>
+
+<script>
+    function logIn() {
+
+        const loginEmail = document.getElementById("logIn-email");
+        const logInPass = document.getElementById("logIn-pass");
+
+        var Email=loginEmail;
+        const Uemail = loginEmail.value;
+        const Upass = logInPass.value;
+        console.log(Upass, Uemail)
+        if (!Uemail || !Upass) {
+            return alert("You need to fill up all the forms.");
+        }
+
+        let clientsArr = JSON.parse(localStorage.getItem("users"));
+        console.log(clientsArr)
+
+        const user = clientsArr.find(
+            (user) => user.email === Uemail && user.password === Upass
+
+        );
+
+        if (user) {
+            localStorage.setItem("userEmail",JSON.stringify(Uemail));
+            window.location.href = "user-logged-in.html";
+        } else {
+            alert("Wrong email or password.");
+        }
+    }
+ document.querySelector("li").innerHTML = Email;
+
+
+
+</script>
+
+
+
+</html>

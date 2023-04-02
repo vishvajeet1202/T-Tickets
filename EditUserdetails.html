@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styleIndex.css">
+</head>
+
+
+<body background="gradient-dark-blue-futuristic-digital-background.jpg">
+    <header>
+        <nav class="navbar" style="background-color: #6c97b1;">
+            <img src="logo.png" class="logo">
+            <ul>
+                <li><a href="user-logged-in.html">Home</a> </li>
+                <li><a href="index.html">Logout</a> </li>
+                <!-- <li><a href="#" onclick="toggleMenu()">Menu</a> </li> -->
+            </ul>
+            <div class="sub-menu-wrap" id="submenu">
+                <div class="sub-menu" style="background-color: #6c97b1;">
+
+                    <a href="EditUserdetails.html" class="submenu-link">
+                        <p>Edit your details</p>
+
+                    </a>
+                    <a href="#" class="submenu-link">
+                        <p>Show my ticket</p>
+
+                    </a>
+                    <!-- <a href="#" class="submenu-link">
+                        <p>Cancel tiket</p>
+
+                    </a> -->
+                    <a href="#" class="submenu-link">
+                        <p>Download ticket</p>
+
+                    </a>
+                </div>
+            </div>
+            <div class="sub-log-wrap" id="logmenu">
+                <div class="log-menu">
+
+                    <a href="admin-login.html" class="log-link">
+                        <p>Admin login</p>
+                    </a>
+                    <a href="user-login.html" class="log-link">
+                        <p>User Login</p>
+                    </a>
+
+                </div>
+            </div>
+        </nav>
+
+    </header>
+    <div class="login">
+        <fieldset class="field"
+            style="padding: 5%; margin-left: 35%; margin-right: 40%;margin-top: 5%;  background-color: #6c97b1; border-radius: 8px;">
+            <h1 style="color: rgb(1, 1, 1); margin-bottom: 20px;">Edit deatils</h1>
+            <input type="email" id="prevEmail" class="username input" placeholder="Previous Email" required
+                style="width: 100%;"><br>
+            <input type="text" id="editName" class="username input" placeholder="New Name" required
+                style="width: 100%;"><br>
+            <input type="email" id="editEmail" class="username input" placeholder="New Email" required
+                style="width: 100%;"><br>
+            <input type="password" id="editPassword" class="password input" placeholder="New Password" required
+                style="width: 100%;"><br>
+            <input type="submit" class="submit" onclick="update()" style="margin-left: 25%;">
+
+        </fieldset>
+    </div>
+
+    <script>
+        function update() {
+
+            const prevEmail = document.getElementById("prevEmail");
+            const editName = document.getElementById("editName");
+            const editEmail = document.getElementById("editEmail");
+            const editPass = document.getElementById("editPassword");
+
+
+            const users = JSON.parse(localStorage.getItem("users"));
+
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].email === prevEmail.value) {
+                    users[i] = {
+                        ...users[i],
+                        email: editEmail.value,
+                        firstName: editName.value,
+                        password: editPass.value
+                    };
+                    localStorage.setItem("users", JSON.stringify(users));
+                    alert("User details updated!");
+                }
+            }
+        }
+
+    </script>
+
+</body>
+
+
+</html>

@@ -1,0 +1,93 @@
+let submenu = document.getElementById("submenu");
+let logmenu = document.getElementById("logmenu");
+
+function toggleMenu() {
+  logmenu.classList.remove("open-log");
+  submenu.classList.toggle("open-menu");
+}
+
+function toggleLogin() {
+  submenu.classList.remove("open-menu");
+  logmenu.classList.toggle("open-log");
+}
+
+var getFrom;
+var getTo;
+var getDate;
+var fare;
+let AbusData = JSON.parse(localStorage.getItem("busses")) || [];
+
+function searchBuses() {
+  const from = document.getElementById("from").value;
+  getFrom = from;
+  const to = document.getElementById("to").value;
+  getTo = to;
+  const date = document.getElementById("date").value;
+  getDate = date;
+  
+  // Check if data is present and calculate fare
+  var busAvailable=false;
+  var busData = [];
+  var j = 0;
+  for (var i = 0; i < AbusData.length; i++) {
+    if (AbusData[i].from == from && AbusData[i].to === to && AbusData[i].date === date) {
+      busData[j++] = AbusData[i];
+      busAvailable=true;
+    }
+
+  }
+  if(!busAvailable){
+    alert("No bus avaiable");
+  }
+ 
+  // const result=busData.filter(obj=> obj.from===from).filter(obj=> obj.to===to).filter(obj=> obj.date===date);
+  populateBusTable(busData);
+}
+
+function populateBusTable(busData) {
+
+  let tableBody = document.querySelector('#bus-table tbody');
+  tableBody.innerHTML = '';
+
+  for (let i = 0; i < busData.length; i++) {
+    let row = document.createElement('tr');
+
+    row.setAttribute('id', 'row-' + i); //row-1 r
+
+    let nameCell = document.createElement('td');
+    console.log(busData[i].name);
+    nameCell.innerText = busData[i].name;
+    row.appendChild(nameCell);
+
+    let busNoCell = document.createElement('td');
+    busNoCell.innerText = busData[i].no;
+    row.appendChild(busNoCell);
+
+    let dateCell = document.createElement('td');
+    dateCell.innerText = busData[i].date;
+    row.appendChild(dateCell);
+
+    let timeCell = document.createElement('td');
+    timeCell.innerText = busData[i].time;
+    row.appendChild(timeCell);
+
+    let fareCell = document.createElement('td');
+    fareCell.innerText = busData[i].fare;
+    row.appendChild(fareCell);
+
+    let fromCell = document.createElement('td');
+    fromCell.innerText = busData[i].from;
+    row.appendChild(fromCell);
+
+    let toCell = document.createElement('td');
+    toCell.innerText = busData[i].to;
+    row.appendChild(toCell);
+
+
+    tableBody.appendChild(row);
+  }
+}
+
+// window.addEventListener('load', function () {
+//   populateBusTable();
+// });

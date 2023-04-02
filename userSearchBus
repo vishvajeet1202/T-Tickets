@@ -1,0 +1,205 @@
+let submenu = document.getElementById("submenu");
+let logmenu = document.getElementById("logmenu");
+
+
+
+function toggleMenu() {
+  logmenu.classList.remove("open-log");
+  submenu.classList.toggle("open-menu");
+}
+
+function toggleLogin() {
+  submenu.classList.remove("open-menu");
+  logmenu.classList.toggle("open-log");
+}
+
+
+let AbusData = JSON.parse(localStorage.getItem("busses")) || [];
+var busData = [];
+function searchBuses() {
+  const from = document.getElementById("from").value;
+
+  const to = document.getElementById("to").value;
+
+  const date = document.getElementById("date").value;
+
+  console.log(1, from, to, date);
+  // Check if data is present and calculate fare
+
+  var busAvailable = false;
+  var j = 0;
+  for (var i = 0; i < AbusData.length; i++) {
+    if (AbusData[i].from == from && AbusData[i].to === to && AbusData[i].date === date) {
+      busData[j++] = AbusData[i];
+      busAvailable = true;
+    }
+
+  }
+  if (!busAvailable) {
+    alert("Bus are not avaible");
+  }
+  console.log(busData);
+  // const result=busData.filter(obj=> obj.from===from).filter(obj=> obj.to===to).filter(obj=> obj.date===date);
+  populateBusTable(busData);
+}
+
+function populateBusTable(busData) {
+
+  let tableBody = document.querySelector('#bus-table tbody');
+  tableBody.innerHTML = '';
+
+  for (let i = 0; i < busData.length; i++) {
+    let row = document.createElement('tr');
+
+    row.setAttribute('id', 'row-' + i); //row-1 r
+
+    let nameCell = document.createElement('td');
+    console.log(busData[i].name);
+    nameCell.innerText = busData[i].name;
+    row.appendChild(nameCell);
+
+    let busNoCell = document.createElement('td');
+    busNoCell.innerText = busData[i].no;
+    row.appendChild(busNoCell);
+
+    let dateCell = document.createElement('td');
+    dateCell.innerText = busData[i].date;
+    row.appendChild(dateCell);
+
+    let timeCell = document.createElement('td');
+    timeCell.innerText = busData[i].time;
+    row.appendChild(timeCell);
+
+    let fareCell = document.createElement('td');
+    fareCell.innerText = busData[i].fare;
+    row.appendChild(fareCell);
+
+    let fromCell = document.createElement('td');
+    fromCell.innerText = busData[i].from;
+    row.appendChild(fromCell);
+
+    let toCell = document.createElement('td');
+    toCell.innerText = busData[i].to;
+    row.appendChild(toCell);
+
+    // let emailCell = document.createElement('td');
+    // let emailTextField = document.createElement("input");
+    // emailTextField.setAttribute("type", "text");
+    // emailTextField.setAttribute('placeholder', 'Email')
+    // emailTextField.setAttribute('id', 'userEmail');
+    // emailCell.appendChild(emailTextField);
+    // row.appendChild(emailCell);
+
+    // let noOfTikCell = document.createElement('td');
+    // let noOfSeats = document.createElement("input");
+    // noOfSeats.setAttribute("type", "number");
+    // noOfSeats.setAttribute('placeholder', 'No of seats')
+    // noOfSeats.setAttribute('id', 'noOfSeats');
+    // noOfSeats.setAttribute('min', 1);
+    // noOfTikCell.appendChild(noOfSeats);
+    // row.appendChild(noOfTikCell);
+
+    let actionsCell = document.createElement('td');
+    let deleteButton = document.createElement('button');
+    deleteButton.innerText = 'Book';
+    deleteButton.addEventListener('click', function () {
+      book(i);
+    });
+    actionsCell.appendChild(deleteButton);
+
+    row.appendChild(actionsCell);
+
+    tableBody.appendChild(row);
+  }
+}
+
+
+
+function book(i) {
+  localStorage.setItem("bookedBus", JSON.stringify(busData[i]));
+  window.location.href = "booking.html";
+
+}
+
+// ------------------------------------booking--------------------------------------------------------------------------
+
+let busses = JSON.parse(localStorage.getItem("busses")) || []; // Initialize an empty array to store booked seats
+let userData = JSON.parse(localStorage.getItem("users")) || [];
+let wantedBus = JSON.parse(localStorage.getItem("bookedBus"));
+
+var idx;
+for (var i = 0; i < busses.length; i++) {
+  if (busses[i].no === wantedBus.no) {
+    idx = i;
+  }
+}
+let userIdx;
+let wantedUser = JSON.parse(localStorage.getItem("userEmail"));
+for (let j = 0; j < userData.length; j++) {
+  if (userData[j].email == wantedUser) {
+    userIdx = j;
+  }
+}
+
+// Add a click event listener to each seat
+let seats = document.querySelectorAll('.seat');
+let bookedSeats = busses[idx].seats;
+let userBookedSeats = userData[userIdx].ticket;
+console.log(bookedSeats, userBookedSeats)
+for (let i = 0; i < bookedSeats.length; i++) {
+  let seat = document.getElementById(bookedSeats[i]);
+  if (seat) {
+    seat.classList.add('booked');
+  }
+}
+var totalFare = 0;
+var totalSeats = [];
+for (let i = 0, j = 0; i < seats.length; i++, j++) {
+
+  seats[i].addEventListener('click', function () {
+    if (!bookedSeats.includes(this.id)) {
+      this.classList.add('selected');
+
+      totalSeats.push(i + 1);
+
+    }
+
+  });
+}
+
+function booking() {
+  for (let i = 0; i < totalSeats.length; i++) {
+
+    if (!bookedSeats.includes(totalSeats[i])) { // Check if the seat is not already booked
+      var element = document.getElementById(totalSeats[i]);
+      element.classList.add('booked'); // Mark the seat as booked
+      bookedSeats.push(totalSeats[i]);
+      userBookedSeats.push(totalSeats[i]); // Add the seat ID to the bookedSeats array
+      localStorage.setItem('busses', JSON.stringify(busses));
+      localStorage.setItem('users', JSON.stringify(userData));
+      totalFare = totalFare + busses[idx].fare;
+    }
+
+  }
+  window.location.reload();
+
+}
+
+// for (let i = 0; i < seats.length; i++) {
+
+//   seats[i].addEventListener('click', function () {
+//     this.classList.add('selected');
+//     if (!bookedSeats.includes(this.id)) { // Check if the seat is not already booked
+//       this.classList.add('booked'); // Mark the seat as booked
+//       bookedSeats.push(this.id);
+//       userBookedSeats.push(this.id); // Add the seat ID to the bookedSeats array
+//       localStorage.setItem('busses', JSON.stringify(busses));
+//       localStorage.setItem('users', JSON.stringify(userData));
+//       totalFare = totalFare + busses[idx].fare;
+//     }
+//   });
+// }
+
+
+
+

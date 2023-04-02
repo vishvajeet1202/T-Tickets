@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin-login</title>
+    <link rel="stylesheet" href="style-user-login.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <img src="logo.png" class="logo">
+            <ul>
+                <li><a href="index.html">Home</a> </li>
+
+            </ul>
+        </nav>
+
+    </header>
+    <div class="login">
+        <fieldset class="field">
+            <h1>Admin Login</h1>
+            <input type="email" id="email" class="username input" placeholder="Enter your Email" required><br>
+            <input type="password" id="password" class="password input" placeholder="Password" required><br>
+            <input type="submit" class="submit" onclick="check()">
+
+        </fieldset>
+    </div>
+    <script>
+        
+        const emailId = document.getElementById("email");
+        const pass = document.getElementById("password");
+        function check() {
+            var obj = JSON.parse(window.localStorage.getItem("admin"));
+               console.log(emailId.value,obj.email)
+            if (emailId.value == obj.email && pass.value == obj.password) {
+                window.location.href = "admin-logedIn.html";
+            }
+            else {
+                alert("Wrong user name or password");
+            }
+        }
+    </script>
+</body>
+
+</html>

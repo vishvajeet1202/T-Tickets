@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="styleIndex.css">
+</head>
+
+
+<body background="gradient-dark-blue-futuristic-digital-background.jpg">
+    <header>
+        <nav class="navbar" style="background-color: #6c97b1;">
+            <img src="logo.png" class="logo">
+            <ul>
+                <li><a href="user-logged-in.html">Home</a> </li>
+                <li><a href="index.html">Logout</a> </li>
+
+            </ul>
+
+
+        </nav>
+
+    </header>
+
+    <title>Bus Booking Interface</title>
+    <style>
+        .container {
+            margin-top: 10%;
+            width: 400px;
+            
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-columns: repeat(auto-fill,minmax(300px,1fr ,1fr ,1fr));
+            justify-content: end;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .seat {
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+            background-color: rgb(8, 164, 115);
+            cursor: pointer;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-shadow: 1px 1px 1px black;
+            transition: 1s;
+
+        }
+        .seat:hover{
+            transform: scale(1.1);
+        }
+
+        .seat.booked {
+            background-color: rgb(255, 0, 0);
+            cursor: not-allowed;
+        }
+        .seat.selected {
+            background-color: rgb(49, 212, 76);
+            cursor: not-allowed;
+        }
+        .submit{
+            padding: 4px; 
+            background-color:crimson; 
+        }
+        .reset{
+            margin-left: 4px; 
+            padding: 4px; 
+            background-color:crimson;
+        }
+        .submit:hover{
+           background-color: rgb(255, 0, 0);
+        }
+        .reset:hover{
+            background-color: rgb(223, 142, 36);
+        }
+    </style>
+
+
+    <html>
+
+    <head>
+
+    </head>
+
+    <body>
+        <div class="container">
+            
+            <div class="seat" id="1">1</div>
+           
+            <div class="seat" id="2">2</div>
+            <div class="seat" id="3">3</div>
+            <div class="seat" id="4">4</div>
+            <div class="seat" id="5">5</div>
+            <div class="seat" id="6">6</div>
+            <div class="seat" id="7">7</div>
+            <div class="seat" id="8">8</div>
+            <div class="seat" id="9">9</div>
+            <div class="seat" id="10">10</div>
+            <div class="seat" id="11">11</div>
+            <div class="seat" id="12">12</div>
+            <div class="seat" id="13">13</div>
+            <div class="seat" id="14">14</div>
+            <div class="seat" id="15">15</div>
+            <div class="seat" id="16">16</div>
+            <div class="seat" id="17">17</div>
+            <div class="seat" id="18">18</div>
+            <div class="seat" id="19">19</div>
+            <div class="seat" id="20">20</div>
+            <div class="seat" id="1">21</div>
+           
+            <div class="seat" id="2">22</div>
+            <div class="seat" id="3">23</div>
+            <div class="seat" id="4">24</div>
+            <div class="seat" id="5">25</div>
+            <div class="seat" id="6">26</div>
+            <div class="seat" id="7">27</div>
+            <div class="seat" id="8">28</div>
+            <div class="seat" id="9">29</div>
+            <div class="seat" id="9">30</div>
+            
+        </div>
+        <div style="display: flex; margin-left: 40%;">
+            <input class="submit" type="submit" onclick="booking()"  >
+            <input type="submit" class="reset" value="Reset" onclick="reset()"  >
+        </div>
+       
+    </body>
+
+    </html>
+    <script>
+        function reset(){
+            window.location.reload();
+        }
+    </script>
+    <script src="userSearchBus"></script>
+   
+</body>
+
+
+</html>

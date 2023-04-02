@@ -1,0 +1,172 @@
+const today = new Date().toISOString().substr(0, 10);
+document.getElementById("date").min = today;
+
+
+const busName = document.getElementById("add-bus-Name");
+const busNo = document.getElementById("add-bus-no");
+const seatsNo = document.getElementById("add-total-seats");
+const busTime = document.getElementById("add-time");
+const busFrom = document.getElementById("add-from");
+const busDate = document.getElementById("date");
+const busTo = document.getElementById("add-to");
+const busfare = document.getElementById("add-fare");
+
+console.log(busName.value,busNo.value,seatsNo.value,busTime.value,busDate.value,busTo.value);
+
+function addBus() {
+    let bus_name = busName.value;
+    let bus_no = busNo.value;
+    let total_seats_no = seatsNo.value;
+    let bus_time = busTime.value;
+    let from = busFrom.value;
+    let to = busTo.value;
+    let fare =busfare.value ;
+    let bus_date = busDate.value;
+    let seats=[];
+
+
+    if (!bus_name || !bus_no || !total_seats_no || !bus_time || !from || !to || !bus_date) {
+        return alert("You need to fill up all the Details.");
+    }
+
+    let bus_Data = {
+        name: bus_name,
+        no: bus_no,
+        seats: total_seats_no,
+        time: bus_time,
+        from: from,
+        to: to,
+        fare: fare,
+        date: bus_date,
+        seats:seats
+    };
+
+    let busArr = JSON.parse(localStorage.getItem("busses")) || [];
+
+    const busExists = busArr.find(
+        (bus) => bus.no === bus_no
+    );//userExixt is a boolean function 
+
+    if (busExists) {
+        return alert("Bus already exists");
+    }
+
+    busArr.push(bus_Data);
+
+    localStorage.setItem("busses", JSON.stringify(busArr));
+    location.reload();
+    alert("bus added!");
+    
+}
+
+// ---------------------------------------------------------------------
+let busData = JSON.parse(localStorage.getItem("busses")) || [];
+function populateBusTable() {
+
+    let tableBody = document.querySelector('#bus-table tbody');
+    tableBody.innerHTML = '';
+
+    for (let i = 0; i < busData.length; i++) {
+        let row = document.createElement('tr');
+
+        row.setAttribute('id', 'row-' + i); //row-1 r
+
+        let nameCell = document.createElement('td');
+        nameCell.innerText = busData[i].name;
+        row.appendChild(nameCell);
+
+        let busNoCell = document.createElement('td');
+        busNoCell.innerText = busData[i].no;
+        row.appendChild(busNoCell);
+
+        let dateCell = document.createElement('td');
+        dateCell.innerText = busData[i].date;
+        row.appendChild(dateCell);
+
+        let timeCell = document.createElement('td');
+        timeCell.innerText = busData[i].time;
+        row.appendChild(timeCell);
+
+        let fareCell = document.createElement('td');
+        fareCell.innerText = busData[i].fare;
+        row.appendChild(fareCell);
+
+        let fromCell = document.createElement('td');
+        fromCell.innerText = busData[i].from;
+        row.appendChild(fromCell);
+
+        let toCell = document.createElement('td');
+        toCell.innerText = busData[i].to;
+        row.appendChild(toCell);
+
+        
+
+        tableBody.appendChild(row);
+    }
+}
+
+window.addEventListener('load', function () {
+    populateBusTable();
+});
+// function deleteBus(index) {
+//     // find the object in the array that corresponds to the clicked row
+//     const busObject = busData[index];
+//     // remove the object from the array
+//     busData.splice(index, 1);
+//     // update the localStorage with the updated array
+//     localStorage.setItem('busses', JSON.stringify(busData));
+//     // remove the row from the table
+//     const row = document.querySelector('#row-' + index);
+//     row.parentNode.removeChild(row);
+// }
+
+// // -------------------------------------Edit----------------------------------------------
+// var idx;
+// function editBus(index) {
+//     const busObject = busData[index];
+//     document.getElementById("edit-bus-Name").value = busObject.name;
+//     document.getElementById("edit-bus-no").value = busObject.no;
+//     document.getElementById("edit-total-seats").value = busObject.seats;
+//     document.getElementById("edit-from").value = busObject.from;
+//     document.getElementById("edit-to").value = busObject.to;
+//     document.getElementById("edit-time").value = busObject.time;
+//     document.getElementById("edit-date").value = busObject.date;
+//     document.getElementById("edit-fare").value = busObject.fare;
+//     idx = index;
+
+// }
+
+
+// function editnSubmit() {
+//     populateBusTable();
+//     let editname = document.getElementById("edit-bus-Name").value;
+//     let editno = document.getElementById("edit-bus-no").value;
+//     let editseats = document.getElementById("edit-total-seats").value;
+//     let edittime = document.getElementById("edit-time").value;
+//     let editfrom = document.getElementById("edit-from").value;
+//     let editdate = document.getElementById("edit-date").value;
+//     let editfare = document.getElementById("edit-fare").value;
+//     let editto = document.getElementById("edit-to").value;
+
+//     let busArr = JSON.parse(localStorage.getItem("busses")) || [];
+
+//     // find the index of the bus to edit
+//     const index = busArr.findIndex((bus) => bus.no === editno);
+//     if (index === -1) {
+//         return alert("Bus not found");
+//     }
+
+//     // update the properties of the existing bus object with the new values
+//     busArr[index].name = editname;
+//     busArr[index].seats = editseats;
+//     busArr[index].time = edittime;
+//     busArr[index].from = editfrom;
+//     busArr[index].to = editto;
+//     busArr[index].date = editdate;
+//     busArr[index].fare = editfare
+
+//     // update the localStorage with the updated array
+//     localStorage.setItem('busses', JSON.stringify(busArr));
+//     location.reload();
+//     alert("Bus updated!");
+// }
